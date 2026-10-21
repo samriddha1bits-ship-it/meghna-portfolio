@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
 
 :root {
   color-scheme: dark;
@@ -34,6 +33,7 @@
         .site {
           position: relative;
           min-height: 100vh;
+          min-height: 100svh;
           overflow-x: clip;
           background:
             radial-gradient(ellipse at 78% 10%, rgba(101, 58, 145, 0.15), transparent 36%),
@@ -878,7 +878,8 @@
           min-height: 240px;
           height: 100%;
           aspect-ratio: 4/5;
-          background: linear-gradient(145deg, #f2dfd7, #f8eade 52%, #ead4c3);
+          background-image: linear-gradient(110deg, #ead4c3 30%, #f8eade 50%, #ead4c3 70%);
+          background-color: #ead4c3;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -887,6 +888,15 @@
           gap: 10px;
           padding: 20px;
           color: var(--scrap-brown);
+        }
+        .photo-placeholder > * { visibility: hidden; }
+        .photo-placeholder {
+          background-size: 220% 100%;
+          animation: photo-shimmer 1.6s ease-in-out infinite;
+        }
+        @keyframes photo-shimmer {
+          0% { background-position: 120% 0; }
+          100% { background-position: -120% 0; }
         }
         .portrait-scrap-hero .photo-placeholder { min-height: 350px; }
         .portrait-scrap-small .photo-placeholder { min-height: 220px; }
@@ -1523,3 +1533,58 @@
         @media (prefers-reduced-motion: reduce) {
           .site.dark::before, .site.dark::after, .book-halo { animation: none !important; }
         }
+
+
+/* ---------- Mobile polish ---------- */
+.mobile-nav { display: none; }
+
+@media (max-width: 560px) {
+  .mobile-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0 20px 4px;
+  }
+  .mobile-nav .chip {
+    flex: 0 0 auto;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    padding: 8px 14px;
+    font-size: 12px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .mobile-nav .chip.active {
+    color: var(--text);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+  }
+  .cmd-shortcut { display: none; }
+
+  /* 16px inputs stop iOS Safari from zooming the page on focus */
+  .contact-form input,
+  .contact-form textarea,
+  .command-input-row input { font-size: 16px; }
+
+  /* last interest card shouldn't sit alone in a half-empty row */
+  .interest-card:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: 160px; }
+
+  /* tiny labels were hard to read on phones */
+  .scrapbook-topline { font-size: 10px; }
+  .contact-form label,
+  .eyebrow, .personal-eyebrow, .scrap-section-heading p { font-size: 10px; }
+  .command-overlay { padding: 12vh 14px 20px; }
+  .command-list { max-height: 55vh; }
+}
+
+@media (hover: none) {
+  .command-footer { display: none; }
+}
+
+@media (hover: none) {
+  .lightbox-hint { display: none; }
+}
