@@ -156,6 +156,21 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    // Warm the cache for the Personal tab's photos so they're ready on switch.
+    const preload = () =>
+      scrapbookPhotos.forEach(({ src }) => {
+        const img = new Image();
+        img.decoding = "async";
+        img.src = src;
+      });
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void) => number;
+    };
+    if (w.requestIdleCallback) w.requestIdleCallback(preload);
+    else window.setTimeout(preload, 1200);
+  }, []);
+
+  useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("meghna-theme", theme);
   }, [theme]);
@@ -545,6 +560,18 @@ export default function Home() {
         </div>
       </div>
 
+      <nav className="mobile-nav" aria-label="Sections">
+        {activeNavSections.map((section) => (
+          <button
+            key={section.id}
+            className={activeSection === section.id ? "chip active" : "chip"}
+            onClick={() => scrollTo(section.id)}
+          >
+            {section.label}
+          </button>
+        ))}
+      </nav>
+
       {mode === "work" ? (
         <>
           <section className="hero" id="about">
@@ -634,6 +661,9 @@ export default function Home() {
                     src="/meghna-portrait.jpg"
                     alt="Portrait of Meghna Bose"
                     className="portrait"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                   />
                 </div>
                 <div className="portrait-caption">
@@ -722,6 +752,10 @@ export default function Home() {
                       src="/book-cover.jpg"
                       alt="Cover of A World Seen at Eighteen by Meghna Bose"
                       className="book-cover"
+                      loading="lazy"
+                      decoding="async"
+                      width={431}
+                      height={690}
                     />
                     <div className="book-shine" />
                   </div>
@@ -1005,6 +1039,9 @@ export default function Home() {
               <img
                 src="/meghna-personal-1.jpg"
                 alt="Meghna smiling"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 onError={(event) => {
                   event.currentTarget.style.display = "none";
                 }}
@@ -1055,6 +1092,8 @@ export default function Home() {
                 </div>
                 <img
                   src="/meghna-personal-2.jpg"
+                  loading="lazy"
+                  decoding="async"
                   alt="A candid portrait of Meghna"
                   onError={(event) => {
                     event.currentTarget.style.display = "none";
@@ -1155,6 +1194,8 @@ export default function Home() {
                 </div>
                 <img
                   src="/meghna-memory-1.jpg"
+                  loading="lazy"
+                  decoding="async"
                   alt="Favourite portrait of Meghna"
                   onError={(event) => {
                     event.currentTarget.style.display = "none";
@@ -1173,6 +1214,8 @@ export default function Home() {
                 </div>
                 <img
                   src="/meghna-memory-2.jpg"
+                  loading="lazy"
+                  decoding="async"
                   alt="A happy day in Meghna’s life"
                   onError={(event) => {
                     event.currentTarget.style.display = "none";
@@ -1197,6 +1240,8 @@ export default function Home() {
                 </div>
                 <img
                   src="/meghna-memory-3.jpg"
+                  loading="lazy"
+                  decoding="async"
                   alt="A candid moment with Meghna"
                   onError={(event) => {
                     event.currentTarget.style.display = "none";
