@@ -1588,3 +1588,35 @@
 @media (hover: none) {
   .lightbox-hint { display: none; }
 }
+
+/* ---------- Photo cards: keep inner box inside the frame on phones ---------- */
+@media (max-width: 800px) {
+  .portrait-scrap .photo-placeholder,
+  .memory-photo .photo-placeholder {
+    width: 100%;
+    min-width: 0;
+    height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  /* leave room under the photo for a two-line caption */
+  .memory-photo img {
+    inset: 12px 12px 54px;
+    width: calc(100% - 24px);
+    height: calc(100% - 66px);
+  }
+  .memory-photo figcaption {
+    bottom: 9px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  .portrait-scrap-small .photo-caption { font-size: 13px; }
+}
+
+/* Only paint the loading shimmer where the photo sits (no strip under it) */
+.portrait-scrap .photo-placeholder { clip-path: inset(13px 13px 38px); }
+.memory-photo .photo-placeholder { clip-path: inset(12px 12px 39px); }
+@media (max-width: 560px) {
+  .memory-photo .photo-placeholder { clip-path: inset(12px 12px 54px); }
+}
