@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useSyncExternalStore } from "react";
+import { instagramUrl, linkedinUrl } from "@/data/content";
 
 const subscribe = () => () => {};
 const getYear = () => new Date().getFullYear();
@@ -19,6 +21,16 @@ export default function Footer() {
       >
         Meghna Bose<span>.</span>
       </button>
+      <nav className="footer-links" aria-label="Footer">
+        <Link href="/">Portfolio</Link>
+        <Link href="/personal">Personal scrapbook</Link>
+        <a href={instagramUrl} target="_blank" rel="me noopener noreferrer">
+          Instagram
+        </a>
+        <a href={linkedinUrl} target="_blank" rel="me noopener noreferrer">
+          LinkedIn
+        </a>
+      </nav>
       <p>© {year} Meghna Bose</p>
     </footer>
   );

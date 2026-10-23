@@ -12,9 +12,13 @@ export default function Hero() {
                   </div>
 
                   <h1>
-                    Meghna
+                    <span className="hero-word" style={{ "--i": 0 } as React.CSSProperties}>
+                      Meghna
+                    </span>
                     <br />
-                    <span>Bose.</span>
+                    <span className="hero-word accent" style={{ "--i": 1 } as React.CSSProperties}>
+                      Bose.
+                    </span>
                   </h1>
 
                   <p className="hero-description">

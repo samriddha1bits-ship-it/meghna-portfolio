@@ -3,7 +3,7 @@ import Portfolio from "@/components/Portfolio";
 import PersonalPage from "@/components/personal/PersonalPage";
 
 export const metadata: Metadata = {
-  title: "Personal",
+  title: "Personal Scrapbook",
   description:
     "A little world of Meghna — favourite things, small joys, and memories.",
   alternates: { canonical: "/personal" },
