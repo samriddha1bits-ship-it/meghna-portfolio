@@ -1,4 +1,12 @@
 import Portfolio from "@/components/Portfolio";
+import About from "@/components/work/About";
+import Contact from "@/components/work/Contact";
+import Education from "@/components/work/Education";
+import Hero from "@/components/work/Hero";
+import Interests from "@/components/work/Interests";
+import Reviews from "@/components/work/Reviews";
+import Ticker from "@/components/work/Ticker";
+import Writing from "@/components/work/Writing";
 import { siteDescription, siteName, siteUrl } from "@/lib/site";
 
 const jsonLd = {
@@ -38,7 +46,16 @@ export default function Page() {
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <Portfolio mode="work" />
+      <Portfolio mode="work">
+        <Hero />
+        <Ticker />
+        <About />
+        <Writing />
+        <Education />
+        <Interests />
+        <Reviews />
+        <Contact />
+      </Portfolio>
     </>
   );
 }

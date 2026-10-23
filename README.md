@@ -1,4 +1,26 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meghna Bose — portfolio
+
+Next.js (App Router) + TypeScript. Live at https://meghna-portfolio-eta.vercel.app
+
+## Project structure
+
+```
+app/                 routes, metadata, sitemap/robots, OG image, 404, /api/contact
+  page.tsx           work page — composes the server-rendered sections
+  personal/page.tsx  personal scrapbook page
+components/
+  Portfolio.tsx      interactive shell: top bar, theme, command palette, effects
+  work/              Hero, About, Writing, Education, Interests, Reviews, Contact …
+  personal/          PersonalPage (scrapbook + photo lightbox)
+  effects/           ScrollProgress, CursorGlow
+data/content.ts      all copy, links and lists in one place — edit content here
+data/commands.ts     command-palette entries
+hooks/               useTheme, scroll/reveal/animation-pause helpers
+```
+
+Section components are server-rendered; only the shell, the contact form, the
+scrapbook and a few small buttons ship JavaScript. Fonts are self-hosted via
+`@fontsource` and images go through `next/image`.
 
 ## Getting Started
 

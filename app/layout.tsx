@@ -1,4 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import "@fontsource-variable/dm-sans";
+import "@fontsource-variable/playfair-display";
+import "@fontsource-variable/playfair-display/wght-italic.css";
+import "@fontsource/dm-mono/400.css";
+import "@fontsource/dm-mono/500.css";
 import { siteDescription, siteName, siteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -16,18 +21,11 @@ export const metadata: Metadata = {
     title: "Meghna Bose — Writer & Creative Mind",
     description: siteDescription,
     url: "/",
-    images: [
-      {
-        url: "/meghna-portrait.jpg",
-        alt: "Portrait of Meghna Bose",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Meghna Bose — Writer & Creative Mind",
     description: siteDescription,
-    images: ["/meghna-portrait.jpg"],
   },
 };
 
@@ -36,9 +34,6 @@ export const viewport: Viewport = {
   initialScale: 1,
   themeColor: "#0d0b12",
 };
-
-const fontsHref =
-  "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap";
 
 // Runs before first paint so returning visitors never see a wrong-theme flash.
 // Saved choice wins; otherwise follow the OS setting; fall back to dark.
@@ -54,13 +49,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="stylesheet" href={fontsHref} />
       </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

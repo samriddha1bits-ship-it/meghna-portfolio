@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Portfolio from "@/components/Portfolio";
+import PersonalPage from "@/components/personal/PersonalPage";
 
 export const metadata: Metadata = {
   title: "Personal",
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
   openGraph: { url: "/personal" },
 };
 
-export default function PersonalPage() {
-  return <Portfolio mode="personal" />;
+export default function Page() {
+  return (
+    <Portfolio mode="personal">
+      <PersonalPage />
+    </Portfolio>
+  );
 }
