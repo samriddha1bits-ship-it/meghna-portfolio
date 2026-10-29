@@ -1914,6 +1914,12 @@
   background: rgba(244, 114, 182, 0.08);
 }
 
+.poem-like-btn:disabled,
+.dialog-like-btn:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+
 .poem-like-btn.liked {
   border-color: #f472b6;
   color: #f472b6;

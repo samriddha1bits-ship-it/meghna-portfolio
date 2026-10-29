@@ -7,8 +7,38 @@ export default function PoetrySection() {
   const [selectedPoem, setSelectedPoem] = useState<Poem | null>(null);
   const [likes, setLikes] = useState<Record<string, number>>({});
   const [likedPoems, setLikedPoems] = useState<Record<string, boolean>>({});
+  const [likesAvailable, setLikesAvailable] = useState(false);
+  const [pendingLikes, setPendingLikes] = useState<Record<string, boolean>>({});
   const [copiedVerse, setCopiedVerse] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/poem-likes", { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Could not load poem likes");
+        return (await response.json()) as { likes: Record<string, number> };
+      })
+      .then(({ likes: sharedLikes }) => {
+        if (!active) return;
+        setLikes(sharedLikes);
+        setLikesAvailable(true);
+        try {
+          const saved: unknown = JSON.parse(localStorage.getItem("poem-likes-v1") || "{}");
+          if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+            setLikedPoems(saved as Record<string, boolean>);
+          }
+        } catch {
+          localStorage.removeItem("poem-likes-v1");
+        }
+      })
+      .catch(() => {
+        if (active) setLikesAvailable(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Dialog management
   useEffect(() => {
@@ -52,10 +82,32 @@ export default function PoetrySection() {
     };
   }, []);
 
-  function handleLike(poemId: string) {
-    if (likedPoems[poemId]) return;
-    setLikes((prev) => ({ ...prev, [poemId]: (prev[poemId] || 0) + 1 }));
-    setLikedPoems((prev) => ({ ...prev, [poemId]: true }));
+  async function handleLike(poemId: string) {
+    if (!likesAvailable || likedPoems[poemId] || pendingLikes[poemId]) return;
+    setPendingLikes((prev) => ({ ...prev, [poemId]: true }));
+    try {
+      const response = await fetch("/api/poem-likes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ poemId }),
+      });
+      const result = (await response.json()) as { likes?: number };
+      if (!response.ok || typeof result.likes !== "number") throw new Error("Like failed");
+      setLikes((prev) => ({ ...prev, [poemId]: result.likes! }));
+      setLikedPoems((prev) => {
+        const next = { ...prev, [poemId]: true };
+        try {
+          localStorage.setItem("poem-likes-v1", JSON.stringify(next));
+        } catch {
+          // The shared count is saved even if this browser cannot save its local liked state.
+        }
+        return next;
+      });
+    } catch {
+      setLikesAvailable(false);
+    } finally {
+      setPendingLikes((prev) => ({ ...prev, [poemId]: false }));
+    }
   }
 
   function copyVerse(verseText: string, poemTitle: string) {
@@ -85,7 +137,7 @@ export default function PoetrySection() {
 
       <div className="poetry-grid">
         {poems.map((poem) => {
-          const poemLikes = (likes[poem.id] || 0) + 14;
+          const poemLikes = likes[poem.id] ?? 0;
           const isLiked = likedPoems[poem.id];
 
           return (
@@ -116,8 +168,9 @@ export default function PoetrySection() {
                     type="button"
                     className={`poem-like-btn ${isLiked ? "liked" : ""}`}
                     onClick={() => handleLike(poem.id)}
+                    disabled={!likesAvailable || isLiked || pendingLikes[poem.id]}
                     aria-label={`Like ${poem.title} (${poemLikes} likes)`}
-                    title="Appreciate this poem"
+                    title={likesAvailable ? "Appreciate this poem" : "Likes are temporarily unavailable"}
                   >
                     <span>{isLiked ? "♥" : "♡"}</span>
                     <span>{poemLikes}</span>
@@ -206,13 +259,14 @@ export default function PoetrySection() {
                   type="button"
                   className={`dialog-like-btn ${likedPoems[selectedPoem.id] ? "liked" : ""}`}
                   onClick={() => handleLike(selectedPoem.id)}
+                  disabled={!likesAvailable || likedPoems[selectedPoem.id] || pendingLikes[selectedPoem.id]}
                 >
                   <span className="heart-icon">
                     {likedPoems[selectedPoem.id] ? "♥" : "♡"}
                   </span>
                   <span>
                     {likedPoems[selectedPoem.id] ? "Appreciated! Liked" : "Appreciate poem"} (
-                    {(likes[selectedPoem.id] || 0) + 14})
+                    {likes[selectedPoem.id] ?? 0})
                   </span>
                 </button>
               </div>
