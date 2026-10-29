@@ -70,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       data-theme="dark"
+      data-scroll-behavior="smooth"
       className="h-full antialiased"
       suppressHydrationWarning
     >

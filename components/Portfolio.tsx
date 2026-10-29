@@ -103,6 +103,12 @@ export default function Portfolio({
       void navigator.clipboard?.writeText(email);
       return;
     }
+    if (action === "copy-quote") {
+      void navigator.clipboard?.writeText(
+        "“And the beauty of solitude, that lets my heart win.” — Meghna Bose"
+      );
+      return;
+    }
     if (action in externalLinks) {
       window.open(externalLinks[action], "_blank", "noopener,noreferrer");
       return;

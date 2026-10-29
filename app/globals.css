@@ -17,13 +17,15 @@
         }
 
         * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+        html { scroll-behavior: smooth; scroll-padding-top: 100px; overflow-x: hidden; width: 100%; }
         body {
-  margin: 0;
-  background: var(--bg, #0d0b12);
-  color: var(--text, #f4eff9);
-  font-family: 'DM Sans Variable', Arial, Helvetica, sans-serif;
-}
+          margin: 0;
+          overflow-x: hidden;
+          width: 100%;
+          background: var(--bg, #0d0b12);
+          color: var(--text, #f4eff9);
+          font-family: 'DM Sans Variable', Arial, Helvetica, sans-serif;
+        }
         button, input, textarea { font: inherit; }
         button, a { -webkit-tap-highlight-color: transparent; }
         a { color: inherit; text-decoration: none; }
@@ -1301,14 +1303,14 @@
 
         @media (max-width: 800px) {
           .topbar { padding: 0 5%; height: 68px; }
-          .desktop-nav { gap: 13px; }
+          .desktop-nav { gap: 11px; }
           .nav-link { font-size: 10px; }
-          .hero { grid-template-columns: 1fr .8fr; gap: 30px; padding: 70px 28px 34px; min-height: 560px; }
-          .hero h1 { font-size: clamp(60px, 9vw, 82px); letter-spacing: -4px; }
+          .hero { grid-template-columns: 1fr .8fr; gap: 30px; padding: 70px 24px 34px; min-height: 540px; }
+          .hero h1 { font-size: clamp(52px, 8vw, 82px); letter-spacing: -3.5px; }
           .portrait { height: 340px; }
-          .note-top { left: -25px; }
-          .note-bottom { right: -12px; }
-          .section { padding: 70px 28px; }
+          .note-top { left: -15px; }
+          .note-bottom { right: -10px; }
+          .section { padding: 70px 24px; }
           .book-feature { padding: 35px; gap: 40px; }
           .book-art { min-height: 300px; }
           .book-image-wrap { width: min(100%, 220px); }
@@ -1316,69 +1318,90 @@
           .about-grid { gap: 40px; }
           .review-card { padding: 28px; }
           .review-side { padding: 25px; }
+          .poetry-grid { grid-template-columns: 1fr; gap: 20px; }
+          .poetry-card { padding: 24px 20px; }
         }
 
         @media (max-width: 560px) {
-          .topbar { height: 64px; }
+          .topbar { height: 62px; padding: 0 16px; }
           .desktop-nav { display: none; }
-          .mode-switch { margin-top: 17px; }
-          .hero { grid-template-columns: 1fr; padding: 65px 25px 30px; gap: 48px; }
-          .hero h1 { font-size: 82px; }
-          .hero-description { font-size: 14px; }
-          .portrait-wrap { width: min(82%, 320px); margin: 0 auto; }
-          .portrait { height: 365px; }
-          .note-top { left: -35px; }
-          .note-bottom { right: -25px; }
-          .section { padding: 62px 23px; }
-          .section-heading h2 { font-size: 38px; letter-spacing: -1.5px; }
-          .about-grid { grid-template-columns: 1fr; gap: 25px; }
-          .large-copy { font-size: 23px; }
-          .heading-row { align-items: flex-start; flex-direction: column; }
-          .book-feature { grid-template-columns: 1fr; gap: 40px; padding: 27px 22px; }
-          .book-art { min-height: 340px; }
-          .book-image-wrap { width: 220px; }
-          .book-info h3 { font-size: 43px; }
-          .book-actions { align-items: stretch; flex-direction: column; gap: 12px; }
-          .book-actions > * { width: 100%; }
-          .timeline-item { gap: 12px; }
+          .mode-switch-wrap { margin-top: 14px; }
+          .hero { grid-template-columns: 1fr; padding: 48px 18px 26px; gap: 40px; }
+          .hero h1 { font-size: clamp(48px, 13vw, 72px); letter-spacing: -2.5px; line-height: 0.95; }
+          .hero-description { font-size: 13.5px; line-height: 1.8; margin: 18px 0 22px; }
+          .hero-buttons { align-items: stretch; flex-direction: column; gap: 11px; width: 100%; }
+          .hero-buttons > * { width: 100%; justify-content: center; min-height: 44px; }
+          .hero-socials { margin-top: 18px; }
+          .social-links { gap: 6px; }
+          .social-links a { padding: 7px 10px; font-size: 9.5px; }
+          .portrait-wrap { width: min(86%, 290px); margin: 0 auto; }
+          .portrait { height: 320px; }
+          .note-top { left: -6px; top: 6%; font-size: 9px; padding: 8px 11px; }
+          .note-bottom { right: -6px; bottom: 8%; font-size: 9px; padding: 8px 11px; }
+          .section { padding: 50px 18px; }
+          .section-heading { margin-bottom: 30px; }
+          .section-heading h2 { font-size: clamp(30px, 8vw, 38px); letter-spacing: -1.2px; }
+          .about-grid { grid-template-columns: 1fr; gap: 22px; }
+          .about-highlights-row { gap: 8px; }
+          .highlight-pill { min-width: 120px; padding: 8px 12px; }
+          .large-copy { font-size: 20px; line-height: 1.55; }
+          .heading-row { align-items: flex-start; flex-direction: column; gap: 8px; }
+          .section-count { padding-bottom: 0; }
+          .book-feature { grid-template-columns: 1fr; gap: 32px; padding: 24px 18px; border-radius: 12px; }
+          .book-art { min-height: 300px; }
+          .book-image-wrap { width: 195px; }
+          .book-info h3 { font-size: clamp(34px, 9vw, 42px); }
+          .book-actions { align-items: stretch; flex-direction: column; gap: 11px; }
+          .book-actions > * { width: 100%; justify-content: center; min-height: 44px; }
+          .timeline-item { gap: 12px; padding: 22px 4px; }
           .timeline-number { display: none; }
-          .interest-grid { grid-template-columns: 1fr 1fr; gap: 9px; }
-          .interest-card { min-height: 205px; padding: 17px 13px; }
-          .interest-card h3 { font-size: 17px; }
+          .interest-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+          .interest-card { min-height: 190px; padding: 15px 12px; }
+          .interest-card h3 { font-size: 16px; margin: 0 0 6px; }
+          .interest-card p { font-size: 10.5px; line-height: 1.6; }
           .review-feature { grid-template-columns: 1fr; }
-          .review-side { border-right: 0; border-bottom: 1px solid var(--line); padding: 25px; }
-          .quote-mark { font-size: 70px; margin-bottom: 15px; }
-          .review-rating { font-size: 40px; }
-          .review-card { padding: 25px 20px; }
-          .review-card blockquote { font-size: 16px; }
+          .review-side { border-right: 0; border-bottom: 1px solid var(--line); padding: 22px 18px; }
+          .quote-mark { font-size: 60px; margin-bottom: 10px; }
+          .review-rating { font-size: 38px; }
+          .review-card { padding: 22px 18px; }
+          .review-card blockquote { font-size: 15px; line-height: 1.7; }
           .verified-label { width: fit-content; }
-          .contact-panel { padding: 45px 25px; }
-          .contact-panel h2 { font-size: 57px; }
-          .footer { padding: 20px 23px; }
-          .footer p { max-width: 145px; line-height: 1.6; }
-          .scrapbook-page { padding: 22px 20px 55px; }
-          .scrapbook-topline { font-size: 8px; letter-spacing: .8px; }
-          .scrapbook-hero { grid-template-columns: 1fr; gap: 28px; padding: 38px 2% 45px; }
-          .scrapbook-page h1 { font-size: clamp(58px, 17vw, 78px); letter-spacing: -3px; }
-          .portrait-scrap-hero { width: min(86%, 330px); }
-          .portrait-scrap-hero .photo-placeholder { min-height: 290px; }
+          .contact-panel { padding: 36px 18px; }
+          .contact-panel h2 { font-size: clamp(34px, 8.5vw, 48px); }
+          .contact-description { font-size: 12.5px; }
+          .contact-form input, .contact-form textarea { font-size: 16px; }
+          .contact-form button { width: 100%; justify-content: center; min-height: 46px; }
+          .footer { padding: 18px; flex-direction: column; text-align: center; gap: 12px; }
+          .footer p { max-width: none; }
+          .scrapbook-page { padding: 18px 16px 45px; }
+          .scrapbook-topline { font-size: 8px; letter-spacing: .6px; }
+          .scrapbook-hero { grid-template-columns: 1fr; gap: 24px; padding: 28px 2% 35px; }
+          .scrapbook-page h1 { font-size: clamp(48px, 15vw, 70px); letter-spacing: -2px; }
+          .portrait-scrap-hero { width: min(86%, 290px); }
+          .portrait-scrap-hero .photo-placeholder { min-height: 250px; }
           .doodle-heart { right: 0; bottom: 5px; }
-          .doodle-star { right: 8%; top: 25px; }
-          .about-note-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; }
-          .paper-note { grid-column: 1 / -1; }
-          .paper-note .note-signoff { margin-top: 22px; }
-          .little-facts { padding-left: 14px; }
-          .favourite-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-          .favourite-card { min-height: 220px; padding: 20px 15px; }
-          .memories-intro { margin: 0 0 25px; }
-          .memory-board { grid-template-columns: 1fr 1fr; gap: 20px 14px; padding: 0 5px 15px; }
+          .doodle-star { right: 6%; top: 18px; }
+          .about-note-grid { grid-template-columns: 1fr; gap: 16px; }
+          .paper-note { grid-column: 1 / -1; padding: 22px 18px 20px; }
+          .paper-note .note-signoff { margin-top: 18px; }
+          .little-facts { padding-left: 12px; }
+          .favourite-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+          .favourite-card { min-height: 200px; padding: 18px 13px; }
+          .memories-intro { margin: 0 0 20px; font-size: 13.5px; }
+          .memory-board { grid-template-columns: 1fr 1fr; gap: 16px 10px; padding: 0 2px 12px; }
           .memory-photo-wide { --base-y: 0px; }
-          .memory-quote { grid-column: 1 / -1; grid-row: auto; padding: 10px 10px; }
-          .memory-photo .photo-placeholder { min-height: 160px; padding: 12px; }
-          .placeholder-icon { width: 38px; height: 38px; }
-          .photo-placeholder strong { font-size: 14px; }
-          .lightbox-stage { gap: 10px; }
-          .lightbox-nav { width: 36px; height: 36px; flex: 0 0 36px; font-size: 15px; }
+          .memory-quote { grid-column: 1 / -1; grid-row: auto; padding: 8px; }
+          .memory-photo .photo-placeholder { min-height: 140px; padding: 10px; }
+          .placeholder-icon { width: 34px; height: 34px; }
+          .photo-placeholder strong { font-size: 13px; }
+          .lightbox-stage { gap: 8px; }
+          .lightbox-nav { width: 34px; height: 34px; flex: 0 0 34px; font-size: 14px; }
+        }
+
+        @media (max-width: 420px) {
+          .favourite-grid { grid-template-columns: 1fr; }
+          .memory-board { grid-template-columns: 1fr; }
+          .interest-grid { grid-template-columns: 1fr; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1538,30 +1561,39 @@
 /* ---------- Mobile polish ---------- */
 .mobile-nav { display: none; }
 
-@media (max-width: 560px) {
+@media (max-width: 768px) {
+  .desktop-nav { display: none; }
   .mobile-nav {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
     gap: 8px;
-    margin: 14px 0 0;
-    padding: 0 20px 4px;
+    margin: 8px 0 0;
+    padding: 4px 18px 8px;
+    scroll-snap-type: x proximity;
+  }
+  .mobile-nav::-webkit-scrollbar {
+    display: none;
   }
   .mobile-nav .chip {
     flex: 0 0 auto;
+    scroll-snap-align: start;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: transparent;
+    background: var(--surface);
     color: var(--muted);
-    padding: 8px 14px;
-    font-size: 12px;
+    padding: 7px 14px;
+    font-size: 11.5px;
     white-space: nowrap;
     cursor: pointer;
+    transition: all .2s;
   }
   .mobile-nav .chip.active {
     color: var(--text);
     border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    background: color-mix(in srgb, var(--accent) 18%, transparent);
+    font-weight: 600;
   }
   .cmd-shortcut { display: none; }
 
@@ -1742,3 +1774,545 @@
   transition: color .2s;
 }
 .footer-links a:hover, .footer-links a:focus-visible { color: var(--text); }
+
+/* ==========================================================================
+   AUTHENTIC POETRY SHOWCASE & READER
+   ========================================================================== */
+
+.poetry-section {
+  position: relative;
+  margin-top: 60px;
+}
+
+.poetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+  margin-top: 32px;
+}
+
+.poetry-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.poetry-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), rgba(245, 217, 165, 0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.poetry-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(199, 165, 255, 0.4);
+  box-shadow: 0 20px 42px var(--shadow);
+}
+
+.poetry-card:hover::before {
+  opacity: 1;
+}
+
+.poetry-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.poetry-theme-pill {
+  font: 600 10.5px 'DM Mono', monospace;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 6px;
+  background: rgba(199, 165, 255, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(199, 165, 255, 0.22);
+}
+
+.poetry-time-pill {
+  font: 11px 'DM Mono', monospace;
+  color: var(--muted);
+}
+
+.poetry-card-title {
+  margin: 0 0 8px;
+  font: 600 clamp(20px, 2.5vw, 24px)/1.25 'Playfair Display Variable', serif;
+  color: var(--text);
+}
+
+.poetry-card-subtitle {
+  margin: 0 0 16px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.poetry-card-verse {
+  margin: 0 0 22px;
+  padding: 12px 16px;
+  border-left: 2px solid var(--accent);
+  background: rgba(199, 165, 255, 0.06);
+  border-radius: 0 8px 8px 0;
+  font: italic 13.5px/1.65 'Playfair Display Variable', serif;
+  color: var(--text);
+}
+
+.poetry-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.poetry-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.poetry-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poem-like-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font: 500 12px 'DM Sans Variable', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.poem-like-btn:hover {
+  border-color: #f472b6;
+  color: #f472b6;
+  background: rgba(244, 114, 182, 0.08);
+}
+
+.poem-like-btn.liked {
+  border-color: #f472b6;
+  color: #f472b6;
+  background: rgba(244, 114, 182, 0.15);
+}
+
+.read-poem-btn {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 7px 16px;
+  border-radius: 8px;
+  font: 600 12.5px 'DM Sans Variable', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.read-poem-btn:hover {
+  background: var(--accent);
+  color: #120e1a;
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(199, 165, 255, 0.25);
+}
+
+/* ==========================================================================
+   POEM DIALOG MODAL
+   ========================================================================== */
+
+dialog.poem-reader-dialog {
+  border: none;
+  padding: 0;
+  background: transparent;
+  width: min(92vw, 680px);
+  max-width: 680px;
+  border-radius: 20px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  z-index: 100;
+}
+
+dialog.poem-reader-dialog::backdrop {
+  background: rgba(8, 6, 14, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.poem-dialog-content {
+  background: var(--surface);
+  color: var(--text);
+  padding: 38px 44px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  scroll-behavior: smooth;
+}
+
+.poem-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.poem-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.poem-dot {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.poem-close-btn {
+  border: none;
+  background: transparent;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  color: var(--muted);
+  display: grid;
+  place-content: center;
+  transition: all 0.2s;
+}
+
+.poem-close-btn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  transform: rotate(90deg);
+}
+
+.poem-dialog-title {
+  margin: 0 0 6px;
+  font: 700 clamp(26px, 4vw, 36px)/1.15 'Playfair Display Variable', serif;
+  color: var(--text);
+}
+
+.poem-dialog-subtitle {
+  margin: 0 0 10px;
+  font: italic 14px 'Playfair Display Variable', serif;
+  color: var(--muted);
+}
+
+.poem-dialog-byline {
+  margin: 0 0 26px;
+  font: 12.5px 'DM Mono', monospace;
+  color: var(--muted);
+}
+
+.poem-pull-quote {
+  margin: 0 0 32px;
+  padding: 18px 22px;
+  border-left: 3px solid var(--accent);
+  background: rgba(199, 165, 255, 0.08);
+  border-radius: 0 10px 10px 0;
+  position: relative;
+}
+
+.poem-pull-quote .quote-flourish {
+  font-size: 30px;
+  line-height: 0;
+  color: var(--accent);
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.poem-pull-quote .quote-line {
+  margin: 0 0 12px;
+  font: italic 16px/1.65 'Playfair Display Variable', serif;
+  color: var(--text);
+}
+
+.copy-quote-btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 4px 12px;
+  font: 500 11.5px 'DM Sans Variable', sans-serif;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.copy-quote-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copy-quote-btn.copied {
+  background: #10b981;
+  color: #fff;
+  border-color: #10b981;
+}
+
+.poem-stanzas-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 8px 4px 18px;
+}
+
+.poem-stanza {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.poem-line {
+  margin: 0;
+  font: 400 16.5px/1.8 'Playfair Display Variable', Georgia, serif;
+  color: var(--text);
+  letter-spacing: 0.1px;
+}
+
+.poem-signoff-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 24px 0 32px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+
+.poem-signoff-dash {
+  color: var(--accent);
+  font-size: 18px;
+}
+
+.poem-signoff-name {
+  font: italic 600 17px 'Playfair Display Variable', serif;
+  color: var(--text);
+}
+
+.poem-dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dialog-like-btn {
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 20px;
+  font: 500 13px 'DM Sans Variable', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.dialog-like-btn:hover {
+  border-color: #f472b6;
+  color: #f472b6;
+}
+
+.dialog-like-btn.liked {
+  border-color: #f472b6;
+  color: #f472b6;
+  background: rgba(244, 114, 182, 0.12);
+}
+
+@media (max-width: 640px) {
+  dialog.poem-reader-dialog {
+    width: 95vw;
+    max-height: 92vh;
+    border-radius: 16px;
+  }
+  .poem-dialog-content {
+    padding: 24px 18px;
+    max-height: 90vh;
+    border-radius: 16px;
+  }
+  .poem-dialog-title {
+    font-size: clamp(22px, 6.5vw, 28px);
+    line-height: 1.2;
+  }
+  .poem-dialog-subtitle {
+    font-size: 13px;
+  }
+  .poem-dialog-byline {
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+  .poem-pull-quote {
+    padding: 14px 16px;
+    margin-bottom: 22px;
+  }
+  .poem-pull-quote .quote-line {
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  .poem-line {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .poem-stanzas-container {
+    gap: 18px;
+  }
+  .poem-signoff-wrap {
+    margin: 18px 0 24px;
+  }
+  .poem-dialog-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .poem-dialog-footer .secondary-button,
+  .dialog-like-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+}
+
+/* ==========================================================================
+   INTERACTIVE BOOK COVER POLISH
+   ========================================================================== */
+
+.interactive-book-wrap {
+  position: relative;
+  will-change: transform;
+}
+
+.hero-literary-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(199, 165, 255, 0.1);
+  border: 1px solid rgba(199, 165, 255, 0.25);
+  font: 500 12.5px 'DM Sans Variable', sans-serif;
+  color: var(--text);
+  margin-bottom: 18px;
+  width: fit-content;
+}
+
+.hero-literary-pill .pill-dot {
+  color: var(--accent);
+  font-size: 11px;
+}
+
+/* Editorial Drop Cap on About */
+.editorial-drop-cap::first-letter {
+  float: left;
+  font: 700 3.2em/0.8 'Playfair Display Variable', serif;
+  margin: 0.1em 0.12em 0 0;
+  color: var(--accent);
+}
+
+.about-highlights-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.highlight-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 10px 14px;
+  border-radius: 10px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.highlight-pill .pill-icon {
+  font-size: 20px;
+}
+
+.highlight-pill strong {
+  display: block;
+  font: 600 13px 'DM Sans Variable', sans-serif;
+  color: var(--text);
+}
+
+.highlight-pill small {
+  display: block;
+  font: 11px 'DM Mono', monospace;
+  color: var(--muted);
+}
+
+.about-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.link-separator {
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+/* 3D Tilt Glare for Cards */
+.tilt-card {
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.15s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 65%
+  );
+  transition: opacity 0.25s ease;
+}
+
+.tilt-card[data-tilting="true"] .card-glare {
+  opacity: 1;
+}
+

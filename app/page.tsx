@@ -7,6 +7,7 @@ import Interests from "@/components/work/Interests";
 import Reviews from "@/components/work/Reviews";
 import Ticker from "@/components/work/Ticker";
 import Writing from "@/components/work/Writing";
+import PoetrySection from "@/components/work/PoetrySection";
 import {
   amazonUrl,
   bookUrl,
@@ -94,6 +95,7 @@ export default function Page() {
         <Ticker />
         <About />
         <Writing />
+        <PoetrySection />
         <Education />
         <Interests />
         <Reviews />

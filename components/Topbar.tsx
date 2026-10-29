@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import type { Mode, Theme } from "@/data/content";
 
 type Props = {
@@ -23,6 +24,22 @@ export default function Topbar({
   onOpenPalette,
   onSwitchMode,
 }: Props) {
+  const mobileNavRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const nav = mobileNavRef.current;
+    const activeChip = nav?.querySelector<HTMLElement>(".chip.active");
+    if (!nav || !activeChip) return;
+
+    const navRect = nav.getBoundingClientRect();
+    const chipRect = activeChip.getBoundingClientRect();
+    const left = nav.scrollLeft + chipRect.left - navRect.left - (nav.clientWidth - chipRect.width) / 2;
+    nav.scrollTo({
+      left,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }, [activeSection]);
+
   return (
     <>
     <header className="topbar">
@@ -87,11 +104,12 @@ export default function Topbar({
       </div>
     </div>
 
-    <nav className="mobile-nav" aria-label="Sections">
+    <nav ref={mobileNavRef} className="mobile-nav" aria-label="Sections">
       {sections.map((section) => (
         <button
           key={section.id}
           className={activeSection === section.id ? "chip active" : "chip"}
+          aria-current={activeSection === section.id ? "location" : undefined}
           onClick={() => onNavigate(section.id)}
         >
           {section.label}
