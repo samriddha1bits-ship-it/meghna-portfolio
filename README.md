@@ -75,7 +75,7 @@ Create a Supabase project, run [`supabase/poem-likes.sql`](supabase/poem-likes.s
 in its SQL editor, then set these server environment variables in Vercel and in
 `.env.local` for local development:
 
-- `SUPABASE_URL` — the project URL
+- `SUPABASE_URL` — the project URL (the app also accepts the Data API URL ending in `/rest/v1/`)
 - `SUPABASE_ANON_KEY` — the project's publishable/anon key (never use a service role key)
 
 The migration starts each poem at the existing displayed total of 14. A browser

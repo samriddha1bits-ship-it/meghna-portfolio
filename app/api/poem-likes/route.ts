@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
 const poemIds = ["solitude-haven", "ask-the-moon", "a-tapestry-anew", "in-the-darkest-veil"];
-const supabaseUrl = process.env.SUPABASE_URL;
+// Accept either the project URL or the full Data API URL copied from Supabase.
+const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 
 function configured() {
