@@ -11,7 +11,6 @@ function configured() {
 function headers() {
   return {
     apikey: supabaseAnonKey!,
-    Authorization: `Bearer ${supabaseAnonKey}`,
     "Content-Type": "application/json",
   };
 }
