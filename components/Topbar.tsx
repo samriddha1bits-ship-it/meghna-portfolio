@@ -55,6 +55,7 @@ export default function Topbar({
           <button
             key={section.id}
             className={activeSection === section.id ? "nav-link active" : "nav-link"}
+            aria-current={activeSection === section.id ? "location" : undefined}
             onClick={() => onNavigate(section.id)}
           >
             {section.label}

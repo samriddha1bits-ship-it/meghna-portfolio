@@ -15,11 +15,12 @@ export default function ScrollButton({ target, focusId, className, children }: P
     <button
       className={className}
       onClick={() => {
-        document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        document.getElementById(target)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
         if (focusId) {
           window.setTimeout(() => {
             document.getElementById(focusId)?.focus({ preventScroll: true });
-          }, 450);
+          }, reduceMotion ? 0 : 450);
         }
       }}
     >

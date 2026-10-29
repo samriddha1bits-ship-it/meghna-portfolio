@@ -118,6 +118,9 @@ export default function Portfolio({
 
   return (
     <main className="site">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <ScrollProgress />
       <CursorGlow />
       <div className="ambient-noise" aria-hidden="true" />
@@ -134,7 +137,9 @@ export default function Portfolio({
         onSwitchMode={switchMode}
       />
 
-      {children}
+      <div id="main-content" tabIndex={-1}>
+        {children}
+      </div>
 
       <Footer />
 
