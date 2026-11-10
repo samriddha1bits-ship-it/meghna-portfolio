@@ -90,7 +90,7 @@ export default function PersonalPage() {
         width={874}
         height={1100}
         sizes="(max-width: 800px) 85vw, 420px"
-        priority
+        preload
         onError={(event) => {
         event.currentTarget.style.display = "none";
       }}

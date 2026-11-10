@@ -84,7 +84,7 @@ export default function Lightbox({ index, onChange, onClose }: Props) {
               width={880}
               height={1056}
               sizes="(max-width: 800px) 92vw, 520px"
-              priority
+              loading="eager"
               onError={(event) => {
                 event.currentTarget.style.display = "none";
               }}

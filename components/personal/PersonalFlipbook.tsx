@@ -377,7 +377,7 @@ export default function PersonalFlipbook() {
           alt="Meghna cover portrait with dog"
           width={680}
           height={680}
-          priority
+          loading="lazy"
           className="page-photo"
           sizes="(max-width: 1200px) 40vw, 480px"
         />
@@ -470,6 +470,7 @@ export default function PersonalFlipbook() {
           height={640}
           className="page-photo"
           sizes="(max-width: 1200px) 40vw, 480px"
+          loading="eager"
         />
       </div>
 
@@ -551,8 +552,9 @@ export default function PersonalFlipbook() {
                 alt="Cover photo"
                 width={800}
                 height={800}
-                priority
+                loading="lazy"
                 className="page-photo"
+                sizes="(max-width: 768px) 86vw, 480px"
               />
             </div>
 
@@ -645,6 +647,7 @@ export default function PersonalFlipbook() {
               height={720}
               className="page-actual-img"
               sizes="(max-width: 768px) 85vw, 420px"
+              loading="eager"
             />
           </div>
 
