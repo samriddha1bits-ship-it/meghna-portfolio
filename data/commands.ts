@@ -37,6 +37,7 @@ export function buildCommands(mode: Mode, theme: Theme): Command[] {
 
   return [
     { label: "About me", detail: "A little about who I am", action: "personal-about" },
+    { label: "My Gallery", detail: "Interactive flipbook gallery", action: "personal-book" },
     { label: "Things I love", detail: "Small joys & favourite things", action: "personal-favourites" },
     { label: "Little bits of life", detail: "Snapshots & memories", action: "personal-memories" },
     { label: "Switch to Work Mode", detail: "Return to professional portfolio", action: "work" },

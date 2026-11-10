@@ -36,6 +36,7 @@ export const workSections = [
 
 export const personalSections = [
   { id: "personal-about", label: "About Me" },
+  { id: "personal-book", label: "My Gallery" },
   { id: "personal-favourites", label: "Things I Love" },
   { id: "personal-memories", label: "Memories" },
 ];

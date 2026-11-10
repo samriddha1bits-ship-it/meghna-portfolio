@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "@/components/Lightbox";
+import PersonalFlipbook from "@/components/personal/PersonalFlipbook";
 import { scrapbookPhotos } from "@/data/content";
 
 // One pending animation frame per photo, so fast mouse moves don't pile up work.
@@ -114,7 +115,6 @@ export default function PersonalPage() {
 
                 <section className="scrapbook-section about-scrap" id="personal-about">
                   <div className="scrap-section-heading">
-                    <span className="section-sticker">01</span>
                     <div>
                       <p>THE PERSON BEHIND THE PAGES</p>
                       <h2>
@@ -161,9 +161,23 @@ export default function PersonalPage() {
                   </div>
                 </section>
 
+                <section className="scrapbook-section flipbook-scrap" id="personal-book">
+                  <div className="scrap-section-heading">
+                    <div>
+                      <p>A VISUAL MEMORY BOOK</p>
+                      <h2>
+                        Through the <em>pages.</em>
+                      </h2>
+                    </div>
+                  </div>
+                  <p className="flipbook-section-intro">
+                    An interactive double-page keepsake — turn the pages to explore quiet moments, captured memories, and stories between the lines.
+                  </p>
+                  <PersonalFlipbook />
+                </section>
+
                 <section className="scrapbook-section favourites-scrap" id="personal-favourites">
                   <div className="scrap-section-heading">
-                    <span className="section-sticker sticker-rose">02</span>
                     <div>
                       <p>SMALL JOYS, BIG FEELINGS</p>
                       <h2>
@@ -216,7 +230,6 @@ export default function PersonalPage() {
 
                 <section className="scrapbook-section memories-scrap" id="personal-memories">
                   <div className="scrap-section-heading">
-                    <span className="section-sticker sticker-brown">03</span>
                     <div>
                       <p>SNAPSHOTS &amp; SOFT REMINDERS</p>
                       <h2>

@@ -1110,6 +1110,1332 @@
         .memory-quote p { font: italic 19px/1.6 'Playfair Display Variable', serif; }
         .memory-quote small { color: var(--scrap-muted); font: 10px 'DM Mono', monospace; letter-spacing: 1px; }
 
+        /* ==========================================================================
+           Interactive Scrapbook Flipbook (Double-Page & Single-Page Responsive)
+           ========================================================================== */
+        .flipbook-scrap {
+          position: relative;
+          padding: 44px 0 35px;
+        }
+        .flipbook-section-intro {
+          margin: -10px 0 28px;
+          max-width: 600px;
+          color: var(--scrap-muted);
+          font: 16px/1.8 'Playfair Display Variable', serif;
+        }
+        .sticker-book {
+          background: #e2cebf;
+          color: #644132;
+          transform: rotate(-6deg);
+        }
+        [data-theme="dark"] .sticker-book {
+          background: #392849;
+          color: #e5b3cb;
+        }
+
+        .flipbook-wrapper {
+          --book-cover-bg: #38251b;
+          --book-cover-accent: #dcb46a;
+          --book-cover-text: #fffaf2;
+          --book-page-bg: #fcf9f2;
+          --book-page-edge: #eee0ce;
+          --book-page-text: #2f2119;
+          --book-page-muted: #796153;
+          --book-spine-dark: rgba(28, 16, 11, 0.35);
+          --book-ribbon: #8c2a38;
+          --book-shadow-ambient: rgba(25, 14, 9, 0.22);
+          --book-shadow-deep: rgba(15, 8, 5, 0.38);
+          --book-border: #e8d9c7;
+          --book-plate-bg: #f8f3e8;
+
+          position: relative;
+          width: 100%;
+          margin: 0 auto;
+          user-select: none;
+        }
+
+        [data-theme="dark"] .flipbook-wrapper {
+          --book-cover-bg: #181220;
+          --book-cover-accent: #e2a8c4;
+          --book-cover-text: #f8eefb;
+          --book-page-bg: #221a2d;
+          --book-page-edge: #2d223c;
+          --book-page-text: #f3e9f7;
+          --book-page-muted: #b9a8c9;
+          --book-spine-dark: rgba(8, 4, 14, 0.6);
+          --book-ribbon: #b84b6f;
+          --book-shadow-ambient: rgba(0, 0, 0, 0.5);
+          --book-shadow-deep: rgba(0, 0, 0, 0.72);
+          --book-border: #3c2e4e;
+          --book-plate-bg: #1c1525;
+        }
+
+        /* Toolbar Controls Header */
+        .flipbook-toolbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          flex-wrap: wrap;
+          padding: 10px 18px;
+          margin-bottom: 22px;
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 30px;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .flipbook-status {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: var(--scrap-muted);
+          font: 11px/1 'DM Mono', monospace;
+          letter-spacing: 0.8px;
+        }
+        .status-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 8px var(--accent);
+          animation: pulse-dot 2.5s infinite;
+        }
+        @keyframes pulse-dot {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.55; transform: scale(0.85); }
+        }
+        .status-title {
+          font-weight: 600;
+          color: var(--accent);
+          letter-spacing: 1.5px;
+        }
+        .status-sep {
+          opacity: 0.4;
+        }
+        .status-text {
+          color: var(--scrap-muted);
+        }
+        .flipbook-actions {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        .toolbar-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 14px;
+          border-radius: 20px;
+          border: 1px solid var(--line);
+          background: var(--surface);
+          color: var(--scrap-ink);
+          font: 11px/1.2 'DM Mono', monospace;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .toolbar-btn:hover {
+          background: var(--surface-2);
+          border-color: var(--accent);
+          color: var(--accent);
+          transform: translateY(-1px);
+        }
+        .toolbar-btn:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 2px;
+        }
+
+        /* 3D Double Page Stage & Anatomy */
+        .flipbook-stage {
+          position: relative;
+          width: 100%;
+          margin: 0 auto;
+        }
+        .double-page-stage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(12px, 2.5vw, 28px);
+          padding: 16px 0;
+        }
+        .book-side-nav {
+          flex: 0 0 44px;
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          border: 1px solid var(--line);
+          background: var(--surface);
+          color: var(--scrap-ink);
+          font-size: 24px;
+          line-height: 1;
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+          transition: all 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+          z-index: 10;
+        }
+        .book-side-nav:hover:not(:disabled) {
+          background: var(--accent);
+          color: #fff;
+          border-color: var(--accent);
+          transform: scale(1.08);
+          box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+        }
+        .book-side-nav:active:not(:disabled) {
+          transform: scale(0.96);
+        }
+        .book-side-nav:disabled {
+          opacity: 0.25;
+          cursor: not-allowed;
+          box-shadow: none;
+        }
+        .book-side-nav:focus-visible {
+          outline: 2px solid var(--accent);
+          outline-offset: 3px;
+        }
+
+        /* The Book 3D Box */
+        .book-3d {
+          position: relative;
+          width: min(100%, 880px);
+          aspect-ratio: 1.52 / 1;
+          min-height: 480px;
+          perspective: 2500px;
+          transform-style: preserve-3d;
+          border-radius: 12px;
+          background: var(--book-cover-bg);
+          box-shadow:
+            -3px 0 10px rgba(0, 0, 0, 0.3),
+            0 12px 28px var(--book-shadow-ambient),
+            0 32px 75px var(--book-shadow-deep),
+            inset 0 1px 1px rgba(255, 255, 255, 0.12),
+            inset 0 -2px 6px rgba(0, 0, 0, 0.5);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hardcover outer border casing */
+        .book-3d::before {
+          content: "";
+          position: absolute;
+          inset: -7px;
+          border-radius: 14px;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.3) 100%), var(--book-cover-bg);
+          z-index: -1;
+          box-shadow:
+            inset 0 0 16px rgba(0, 0, 0, 0.55),
+            0 0 0 1px rgba(220, 180, 106, 0.35);
+        }
+
+        /* Spine cylinder down center for open book */
+        .book-center-spine {
+          position: absolute;
+          top: -7px;
+          bottom: -7px;
+          left: 50%;
+          width: 26px;
+          transform: translateX(-50%);
+          background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.45) 0%,
+            rgba(255, 255, 255, 0.12) 40%,
+            rgba(255, 255, 255, 0.18) 50%,
+            rgba(0, 0, 0, 0.35) 70%,
+            rgba(0, 0, 0, 0.5) 100%
+          );
+          z-index: 15;
+          pointer-events: none;
+          border-radius: 3px;
+          opacity: 0.95;
+        }
+
+        /* Silk ribbon hanging down the book fold */
+        .book-ribbon-marker {
+          position: absolute;
+          top: -9px;
+          left: calc(50% - 7px);
+          width: 14px;
+          height: calc(100% + 36px);
+          background: var(--book-ribbon);
+          z-index: 16;
+          pointer-events: none;
+          box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+          clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 50% 100%, 0% 90%);
+          opacity: 0.92;
+        }
+
+        /* Layered Paper Edges at sides */
+        .book-page-edges-left,
+        .book-page-edges-right {
+          position: absolute;
+          top: 6px;
+          bottom: 6px;
+          width: 12px;
+          pointer-events: none;
+          z-index: 1;
+          background: repeating-linear-gradient(
+            to right,
+            var(--book-page-edge),
+            var(--book-page-edge) 1px,
+            rgba(0, 0, 0, 0.09) 1px,
+            rgba(0, 0, 0, 0.09) 2px
+          );
+        }
+        .book-page-edges-left {
+          left: 3px;
+          border-radius: 4px 0 0 4px;
+        }
+        .book-page-edges-right {
+          right: 3px;
+          border-radius: 0 4px 4px 0;
+        }
+
+        /* Open Double Spread Layout */
+        .book-open-spread {
+          position: absolute;
+          inset: 8px 12px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          background: var(--book-page-bg);
+          border-radius: 6px;
+          overflow: hidden;
+          box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.08);
+        }
+        .book-page {
+          position: relative;
+          height: 100%;
+          padding: clamp(14px, 2.2vw, 24px);
+          display: flex;
+          flex-direction: column;
+          background:
+            linear-gradient(to right, rgba(0, 0, 0, 0.02), transparent 10%, transparent 90%, rgba(0, 0, 0, 0.02)),
+            var(--book-page-bg);
+          color: var(--book-page-text);
+          cursor: pointer;
+          overflow: hidden;
+          outline: none;
+        }
+        .page-left {
+          border-right: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .page-right {
+          border-left: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Spine shadow on inside pages */
+        .book-gutter-shadow {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 45px;
+          pointer-events: none;
+          z-index: 6;
+        }
+        .gutter-left {
+          right: 0;
+          background: linear-gradient(to left, var(--book-spine-dark), transparent);
+        }
+        .gutter-right {
+          left: 0;
+          background: linear-gradient(to right, var(--book-spine-dark), transparent);
+        }
+
+        /* Inner Page Content Structure */
+        .book-page-inner {
+          position: relative;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 10px;
+        }
+        .page-top-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 6px;
+          border-bottom: 1px solid var(--book-border);
+        }
+        .folio-num {
+          font: 10px 'DM Mono', monospace;
+          letter-spacing: 1.5px;
+          color: var(--book-page-muted);
+        }
+        .zoom-pill {
+          padding: 2px 7px;
+          border-radius: 10px;
+          border: 1px solid var(--book-border);
+          background: transparent;
+          color: var(--book-page-muted);
+          font-size: 11px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .zoom-pill:hover {
+          background: var(--book-plate-bg);
+          color: var(--accent);
+          border-color: var(--accent);
+          transform: scale(1.05);
+        }
+
+        /* ==========================================================================
+           COVER SPREAD DEDICATION CARD (Right Page of Spread 0)
+           ========================================================================== */
+        .cover-dedication-inner {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .cover-bookplate {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+          text-align: center;
+          padding: 24px 20px 20px;
+          border: 2px solid var(--book-cover-accent);
+          border-radius: 8px;
+          background:
+            radial-gradient(circle at 50% 30%, rgba(220, 180, 106, 0.08), transparent 70%),
+            var(--book-page-bg);
+          box-shadow:
+            inset 0 0 20px rgba(0, 0, 0, 0.04),
+            0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+        .bookplate-badge {
+          font: 10px 'DM Mono', monospace;
+          letter-spacing: 2px;
+          color: var(--book-cover-accent);
+          background: rgba(220, 180, 106, 0.1);
+          border: 1px solid rgba(220, 180, 106, 0.35);
+          padding: 3px 12px;
+          border-radius: 20px;
+        }
+        .bookplate-headings {
+          margin: 6px 0;
+        }
+        .bookplate-title {
+          font: 600 clamp(26px, 3.2vw, 34px)/1.1 'Playfair Display Variable', serif;
+          margin: 6px 0 2px;
+          letter-spacing: -0.5px;
+          background: linear-gradient(135deg, var(--book-cover-accent) 0%, #ffd98a 50%, #c99e4b 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        [data-theme="dark"] .bookplate-title {
+          background: linear-gradient(135deg, #f7d4e5 0%, #e2a8c4 50%, #cca3b8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        .bookplate-subtitle {
+          font: italic 14px 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+          margin: 0;
+        }
+        .bookplate-divider {
+          color: var(--book-cover-accent);
+          font-size: 11px;
+          letter-spacing: 4px;
+          opacity: 0.75;
+          margin-top: 6px;
+        }
+        .bookplate-inscription {
+          font: italic 13px/1.7 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+          max-width: 320px;
+          margin: 0 auto;
+        }
+        .bookplate-sign {
+          font: italic 16px 'Playfair Display Variable', serif;
+          color: var(--accent);
+        }
+        .bookplate-open-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 9px 22px;
+          border-radius: 24px;
+          background: linear-gradient(135deg, rgba(220, 180, 106, 0.22), rgba(220, 180, 106, 0.08));
+          border: 1px solid var(--book-cover-accent);
+          color: var(--book-page-text);
+          font: 600 12px 'DM Mono', monospace;
+          letter-spacing: 1.2px;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .bookplate-open-btn:hover {
+          background: var(--book-cover-accent);
+          color: #1a120b;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+        }
+        .bookplate-open-btn .btn-arrow {
+          transition: transform 0.2s ease;
+        }
+        .bookplate-open-btn:hover .btn-arrow {
+          transform: translateX(3px);
+        }
+
+        /* Book Corner Guards */
+        .book-corner {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          border-color: var(--book-cover-accent);
+          pointer-events: none;
+        }
+        .corner-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
+        .corner-tr { top: 6px; right: 6px; border-top: 2px solid; border-right: 2px solid; }
+        .corner-bl { bottom: 6px; left: 6px; border-bottom: 2px solid; border-left: 2px solid; }
+        .corner-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
+
+        /* Photo Corner Tabs on Mats */
+        .photo-corner-tab {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          border-color: rgba(220, 180, 106, 0.55);
+          pointer-events: none;
+          z-index: 4;
+        }
+
+        /* ==========================================================================
+           PHOTO MAT & 3D TILT EFFECT
+           ========================================================================== */
+        .page-art-box {
+          --tilt-x: 0deg;
+          --tilt-y: 0deg;
+          --glare-x: 50%;
+          --glare-y: 50%;
+          position: relative;
+          width: min(100%, 250px);
+          aspect-ratio: 1 / 1;
+          margin: 0 auto;
+          display: grid;
+          place-items: center;
+          background: var(--book-plate-bg);
+          border: 1px solid var(--book-border);
+          border-radius: 6px;
+          padding: 7px;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08), inset 0 1px 3px rgba(0, 0, 0, 0.04);
+          overflow: hidden;
+          transform-style: preserve-3d;
+          will-change: transform;
+          transform: perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+          transition: transform .42s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow .3s ease;
+          cursor: pointer;
+        }
+        .page-art-box::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          pointer-events: none;
+          opacity: 0;
+          background: radial-gradient(
+            circle at var(--glare-x) var(--glare-y),
+            rgba(255, 255, 255, 0.4),
+            rgba(255, 255, 255, 0.08) 45%,
+            transparent 72%
+          );
+          transition: opacity .25s ease;
+          border-radius: inherit;
+        }
+        .page-art-box[data-tilting="true"] {
+          z-index: 5;
+          transform: perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(1.04) translateZ(8px);
+          box-shadow: 0 12px 26px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1);
+          transition: transform 70ms ease-out, box-shadow .2s ease;
+        }
+        .page-art-box[data-tilting="true"]::after {
+          opacity: 1;
+        }
+        .page-photo {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          object-position: center !important;
+          border-radius: 4px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+          display: block !important;
+        }
+
+        /* Washi tape accents */
+        .washi-strip {
+          position: absolute;
+          top: -7px;
+          left: calc(50% - 32px);
+          width: 64px;
+          height: 18px;
+          border-left: 2px dashed rgba(255, 255, 255, 0.45);
+          border-right: 2px dashed rgba(255, 255, 255, 0.45);
+          transform: rotate(-2.5deg);
+          z-index: 5;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+          pointer-events: none;
+        }
+        .washi-gold { background: rgba(229, 195, 120, 0.78); }
+        .washi-rose { background: rgba(224, 165, 172, 0.78); }
+        .washi-sage { background: rgba(178, 201, 173, 0.78); }
+        .washi-peach { background: rgba(235, 188, 145, 0.78); }
+        .washi-lavender { background: rgba(195, 175, 218, 0.78); }
+
+        .page-bottom-meta {
+          padding-top: 6px;
+          text-align: center;
+        }
+        .page-meta-title {
+          margin: 0 0 3px;
+          font: 600 clamp(14px, 1.8vw, 17px) 'Playfair Display Variable', serif;
+          color: var(--book-page-text);
+        }
+        .page-meta-caption {
+          margin: 0 0 4px;
+          font: italic clamp(11px, 1.4vw, 13px) 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+        }
+        .page-num {
+          display: block;
+          font: 10px 'DM Mono', monospace;
+          letter-spacing: 1px;
+          color: var(--book-page-muted);
+        }
+
+        /* Dog-ear corner fold hints */
+        .curl-hint {
+          position: absolute;
+          bottom: 0;
+          width: 22px;
+          height: 22px;
+          pointer-events: none;
+          transition: all 0.25s ease;
+          z-index: 7;
+        }
+        .curl-right {
+          right: 0;
+          background: linear-gradient(135deg, transparent 50%, var(--book-border) 50%, var(--book-page-edge) 100%);
+          border-radius: 4px 0 0 0;
+        }
+        .curl-left {
+          left: 0;
+          background: linear-gradient(225deg, transparent 50%, var(--book-border) 50%, var(--book-page-edge) 100%);
+          border-radius: 0 4px 0 0;
+        }
+        .book-page:hover .curl-hint {
+          width: 28px;
+          height: 28px;
+          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        /* 3D Turning Leaf Animation */
+        .book-turning-stage {
+          position: absolute;
+          inset: 8px 12px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          perspective: 2500px;
+          transform-style: preserve-3d;
+          border-radius: 6px;
+          overflow: visible;
+          z-index: 25;
+        }
+        .under-left, .under-right {
+          height: 100%;
+          pointer-events: none;
+        }
+        .flipping-leaf {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 50%;
+          transform-style: preserve-3d;
+          will-change: transform;
+          z-index: 30;
+        }
+        .flip-forward-anim {
+          right: 0;
+          transform-origin: 0% 50%;
+          animation: flip-page-forward 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        .flip-backward-anim {
+          left: 0;
+          transform-origin: 100% 50%;
+          animation: flip-page-backward 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes flip-page-forward {
+          0% { transform: rotateY(0deg); }
+          100% { transform: rotateY(-180deg); }
+        }
+        @keyframes flip-page-backward {
+          0% { transform: rotateY(-180deg); }
+          100% { transform: rotateY(0deg); }
+        }
+        .leaf-face {
+          position: absolute;
+          inset: 0;
+          padding: clamp(14px, 2.2vw, 24px);
+          background: var(--book-page-bg);
+          border: 1px solid var(--book-border);
+          backface-visibility: hidden;
+          overflow: hidden;
+        }
+        .leaf-front {
+          transform: rotateY(0deg);
+        }
+        .leaf-back {
+          transform: rotateY(180deg);
+        }
+        .leaf-shadow-overlay {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(to right, rgba(0, 0, 0, 0.3), transparent 60%);
+          opacity: 0;
+          animation: leaf-shading 600ms ease-in-out forwards;
+        }
+        @keyframes leaf-shading {
+          0% { opacity: 0; }
+          50% { opacity: 0.35; }
+          100% { opacity: 0; }
+        }
+
+        /* Epilogue / Inside Back Cover */
+        .book-end-spread {
+          position: absolute;
+          inset: 8px 12px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+        .end-page-left {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          padding: 30px;
+        }
+        .end-symbol {
+          font-size: 26px;
+          color: var(--accent);
+          margin-bottom: 12px;
+        }
+        .end-page-left h3 {
+          font: 600 clamp(20px, 2.6vw, 26px) 'Playfair Display Variable', serif;
+          color: var(--book-page-text);
+          margin: 0 0 12px;
+        }
+        .end-page-left p {
+          font: italic 14px/1.8 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+          max-width: 320px;
+          margin: 0 0 18px;
+        }
+        .end-signature {
+          font: italic 18px 'Playfair Display Variable', serif;
+          color: var(--accent);
+        }
+        .end-page-right {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background:
+            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.04), transparent 60%),
+            var(--book-cover-bg);
+          border-radius: 0 6px 6px 0;
+          padding: 24px;
+        }
+        .back-cover-emboss {
+          text-align: center;
+          color: var(--book-cover-accent);
+          border: 1px solid rgba(220, 180, 106, 0.35);
+          border-radius: 6px;
+          padding: 28px 20px;
+          width: 100%;
+          max-width: 280px;
+        }
+        .back-crest {
+          font-size: 24px;
+          display: block;
+          margin-bottom: 8px;
+        }
+        .back-cover-emboss h4 {
+          font: 500 20px 'Playfair Display Variable', serif;
+          margin: 0 0 6px;
+          color: var(--book-cover-text);
+        }
+        .back-cover-emboss p {
+          font: 11px 'DM Mono', monospace;
+          margin: 0 0 18px;
+          opacity: 0.8;
+        }
+        .read-again-btn {
+          padding: 7px 16px;
+          border-radius: 20px;
+          border: 1px solid var(--book-cover-accent);
+          background: transparent;
+          color: var(--book-cover-text);
+          font: 11px 'DM Mono', monospace;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .read-again-btn:hover {
+          background: var(--book-cover-accent);
+          color: #1a120b;
+        }
+
+        /* Navigation Dots Bar */
+        .flipbook-navigation-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(10px, 2.5vw, 24px);
+          margin-top: 24px;
+          padding: 8px 16px;
+        }
+        .nav-step-btn {
+          padding: 6px 14px;
+          border-radius: 18px;
+          border: 1px solid var(--line);
+          background: var(--surface);
+          color: var(--scrap-ink);
+          font: 11px 'DM Mono', monospace;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .nav-step-btn:hover:not(:disabled) {
+          background: var(--surface-2);
+          border-color: var(--accent);
+          color: var(--accent);
+        }
+        .nav-step-btn:disabled {
+          opacity: 0.35;
+          cursor: not-allowed;
+        }
+        .spread-dots-list {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .spread-dot {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 10px;
+          border-radius: 14px;
+          border: 1px solid transparent;
+          background: transparent;
+          color: var(--scrap-muted);
+          font: 11px 'DM Mono', monospace;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        .dot-bullet {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: var(--scrap-muted);
+          opacity: 0.6;
+          transition: all 0.2s ease;
+        }
+        .spread-dot:hover {
+          background: var(--surface);
+          color: var(--scrap-ink);
+        }
+        .spread-dot.is-active {
+          background: var(--surface);
+          border-color: var(--line);
+          color: var(--accent);
+        }
+        .spread-dot.is-active .dot-bullet {
+          background: var(--accent);
+          opacity: 1;
+          transform: scale(1.4);
+        }
+
+        /* Single Page View Stage with Arrows */
+        .single-page-stage {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(8px, 2.5vw, 24px);
+          padding: 14px 0;
+          width: 100%;
+        }
+        .single-page-viewport {
+          flex: 0 1 460px;
+          width: min(100%, 460px);
+          margin: 0;
+        }
+        .single-page {
+          position: relative;
+          background: var(--book-page-bg);
+          border: 1px solid var(--book-border);
+          border-radius: 10px;
+          box-shadow:
+            0 10px 30px var(--book-shadow-ambient),
+            0 24px 60px var(--book-shadow-deep);
+          overflow: hidden;
+          padding: 16px;
+          min-height: 480px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+        .cover-single-art {
+          width: min(100%, 220px);
+          aspect-ratio: 1 / 1;
+          margin: 10px auto;
+        }
+        .single-nav-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 14px;
+          padding: 6px 12px;
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 20px;
+        }
+        .nav-arrow {
+          padding: 6px 14px;
+          border-radius: 16px;
+          border: 1px solid var(--line);
+          background: transparent;
+          color: var(--scrap-ink);
+          font: 11px 'DM Mono', monospace;
+          cursor: pointer;
+        }
+        .nav-arrow:hover:not(:disabled) {
+          background: var(--accent);
+          color: #fff;
+        }
+        .nav-arrow:disabled {
+          opacity: 0.3;
+        }
+        .nav-page-count {
+          font: 11px 'DM Mono', monospace;
+          color: var(--scrap-muted);
+        }
+        .normal-single-page .book-page-plate {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          gap: 12px;
+        }
+        .page-header-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 6px;
+          border-bottom: 1px solid var(--book-border);
+        }
+        .page-folio {
+          font: 10px 'DM Mono', monospace;
+          color: var(--book-page-muted);
+          letter-spacing: 1px;
+        }
+        .page-zoom-btn {
+          padding: 3px 8px;
+          border-radius: 12px;
+          border: 1px solid var(--book-border);
+          background: transparent;
+          color: var(--book-page-muted);
+          font-size: 11px;
+          cursor: pointer;
+        }
+        .page-image-holder {
+          --tilt-x: 0deg;
+          --tilt-y: 0deg;
+          --glare-x: 50%;
+          --glare-y: 50%;
+          position: relative;
+          width: min(100%, 280px);
+          aspect-ratio: 1 / 1;
+          margin: 0 auto;
+          display: grid;
+          place-items: center;
+          background: var(--book-plate-bg);
+          border: 1px solid var(--book-border);
+          border-radius: 6px;
+          padding: 6px;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+          transform-style: preserve-3d;
+          will-change: transform;
+          transform: perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+          transition: transform .42s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow .3s ease;
+          cursor: pointer;
+        }
+        .page-image-holder::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 3;
+          pointer-events: none;
+          opacity: 0;
+          background: radial-gradient(
+            circle at var(--glare-x) var(--glare-y),
+            rgba(255, 255, 255, 0.38),
+            rgba(255, 255, 255, 0.08) 45%,
+            transparent 72%
+          );
+          transition: opacity .25s ease;
+          border-radius: inherit;
+        }
+        .page-image-holder[data-tilting="true"] {
+          z-index: 5;
+          transform: perspective(700px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) scale(1.04) translateZ(8px);
+          box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+          transition: transform 70ms ease-out, box-shadow .2s ease;
+        }
+        .page-image-holder[data-tilting="true"]::after {
+          opacity: 1;
+        }
+        .page-actual-img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          object-position: center !important;
+          border-radius: 4px;
+          display: block !important;
+        }
+        .page-caption-block {
+          text-align: center;
+          padding-top: 6px;
+        }
+        .page-title {
+          margin: 0 0 3px;
+          font: 600 16px 'Playfair Display Variable', serif;
+          color: var(--book-page-text);
+        }
+        .page-desc {
+          margin: 0 0 4px;
+          font: italic 12px 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+        }
+        .page-number-tag {
+          font: 10px 'DM Mono', monospace;
+          color: var(--book-page-muted);
+        }
+        .book-end-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          padding: 30px 14px;
+          height: 100%;
+        }
+        .end-sparkle {
+          font-size: 28px;
+          color: var(--accent);
+          margin-bottom: 10px;
+        }
+        .book-end-inner h3 {
+          font: 600 22px 'Playfair Display Variable', serif;
+          color: var(--book-page-text);
+          margin: 0 0 12px;
+        }
+        .end-quote {
+          font: italic 14px/1.8 'Playfair Display Variable', serif;
+          color: var(--book-page-muted);
+          margin: 0 0 16px;
+        }
+        .end-signoff {
+          font: italic 16px 'Playfair Display Variable', serif;
+          color: var(--accent);
+          margin-bottom: 22px;
+        }
+        .end-restart-btn {
+          padding: 8px 18px;
+          border-radius: 20px;
+          border: 1px solid var(--accent);
+          background: transparent;
+          color: var(--accent);
+          font: 12px 'DM Mono', monospace;
+          cursor: pointer;
+        }
+
+        /* Lightbox Zoom Modal */
+        .book-zoom-modal-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 120;
+          display: grid;
+          place-items: center;
+          padding: 20px;
+          background: rgba(12, 8, 18, 0.85);
+          backdrop-filter: blur(14px);
+          animation: zoom-fade 200ms ease-out;
+        }
+        @keyframes zoom-fade { from { opacity: 0; } to { opacity: 1; } }
+        .book-zoom-card {
+          position: relative;
+          width: min(92vw, 560px);
+          background: var(--surface);
+          border: 1px solid var(--line);
+          border-radius: 12px;
+          padding: 18px;
+          box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6);
+          animation: zoom-scale 240ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes zoom-scale {
+          from { opacity: 0; transform: scale(0.92); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .book-zoom-close {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 1px solid var(--line);
+          background: var(--surface-2);
+          color: var(--text);
+          font-size: 14px;
+          display: grid;
+          place-items: center;
+          cursor: pointer;
+          z-index: 5;
+        }
+        .book-zoom-img-frame {
+          position: relative;
+          width: 100%;
+          max-height: 65vh;
+          border-radius: 8px;
+          overflow: hidden;
+          background: #000;
+          display: grid;
+          place-items: center;
+        }
+        .book-zoom-img {
+          max-width: 100%;
+          max-height: 65vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+        }
+        .book-zoom-info {
+          margin-top: 14px;
+          text-align: center;
+        }
+        .book-zoom-info h4 {
+          margin: 0 0 4px;
+          font: 600 18px 'Playfair Display Variable', serif;
+          color: var(--text);
+        }
+        .book-zoom-info p {
+          margin: 0;
+          font: italic 13px 'Playfair Display Variable', serif;
+          color: var(--muted);
+        }
+
+        @media (max-width: 900px) {
+          .book-3d {
+            min-height: 400px;
+          }
+          .cover-bookplate {
+            padding: 18px 14px;
+          }
+          .bookplate-title {
+            font-size: 24px;
+          }
+          .bookplate-inscription {
+            font-size: 12px;
+            line-height: 1.5;
+          }
+          .page-art-box {
+            width: min(100%, 210px);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .double-page-stage {
+            padding: 10px 0;
+            gap: 6px;
+          }
+          .book-3d {
+            min-height: 300px;
+            aspect-ratio: 1.4 / 1;
+            border-radius: 8px;
+          }
+          .book-page {
+            padding: 10px 8px;
+          }
+          .page-art-box {
+            width: min(100%, 150px);
+            padding: 4px;
+          }
+          .page-meta-title {
+            font-size: 13px;
+          }
+          .page-meta-caption {
+            font-size: 10px;
+          }
+          .cover-bookplate {
+            padding: 14px 10px;
+          }
+          .bookplate-title {
+            font-size: 20px;
+          }
+          .bookplate-inscription {
+            font-size: 11px;
+            line-height: 1.4;
+          }
+          .bookplate-open-btn {
+            padding: 7px 16px;
+            font-size: 11px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .flipbook-toolbar {
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            gap: 8px;
+          }
+          .flipbook-status {
+            font-size: 10px;
+          }
+          .toolbar-btn {
+            padding: 5px 10px;
+            font-size: 10px;
+          }
+          .single-page-stage {
+            gap: 6px;
+            padding: 8px 0;
+            touch-action: pan-y;
+          }
+          .book-side-nav {
+            flex: 0 0 34px;
+            width: 34px;
+            height: 34px;
+            font-size: 18px;
+          }
+          .single-page {
+            padding: 12px;
+            min-height: auto;
+            border-radius: 8px;
+          }
+          .cover-single-art {
+            width: min(100%, 240px);
+            margin: 8px auto;
+          }
+          .page-image-holder {
+            width: min(100%, 260px);
+          }
+          .page-caption-block {
+            padding-top: 4px;
+          }
+          .page-title {
+            font-size: 15px;
+          }
+          .page-desc {
+            font-size: 11px;
+          }
+          .single-nav-bar {
+            margin-top: 10px;
+            padding: 5px 10px;
+          }
+          .nav-arrow {
+            padding: 5px 12px;
+            font-size: 10px;
+          }
+          .nav-page-count {
+            font-size: 10px;
+          }
+          .flipbook-navigation-bar {
+            margin-top: 14px;
+            padding: 6px 10px;
+            gap: 6px;
+          }
+          .nav-step-btn {
+            padding: 5px 10px;
+            font-size: 10px;
+          }
+          .spread-dots-list {
+            gap: 4px;
+          }
+          .spread-dot {
+            padding: 4px 6px;
+          }
+          .spread-dot .dot-label {
+            display: none;
+          }
+          .book-zoom-card {
+            padding: 12px;
+          }
+          .book-zoom-img-frame {
+            max-height: 55vh;
+          }
+        }
+
+        @media (max-width: 420px) {
+          .single-page-stage {
+            gap: 4px;
+          }
+          .book-side-nav {
+            flex: 0 0 30px;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+          }
+          .single-page {
+            padding: 10px;
+          }
+          .cover-bookplate {
+            padding: 12px 8px;
+          }
+          .bookplate-title {
+            font-size: 18px;
+          }
+          .bookplate-subtitle {
+            font-size: 11px;
+          }
+          .bookplate-inscription {
+            font-size: 10px;
+            line-height: 1.4;
+          }
+          .bookplate-sign {
+            font-size: 13px;
+          }
+          .bookplate-open-btn {
+            padding: 6px 12px;
+            font-size: 10px;
+          }
+          .page-title {
+            font-size: 14px;
+          }
+          .page-desc {
+            font-size: 11px;
+          }
+          .single-nav-bar {
+            padding: 4px 6px;
+          }
+          .nav-arrow {
+            padding: 4px 8px;
+            font-size: 9px;
+          }
+          .nav-step-btn {
+            padding: 4px 8px;
+            font-size: 9px;
+          }
+        }
+
         /* Scrapbook photo lightbox */
         .lightbox-overlay {
           position: fixed;
